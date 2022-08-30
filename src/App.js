@@ -1,27 +1,25 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
+import axios from "axios";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      content: "기상",
-      checked: false,
-    },
-    {
-      id: 2,
-      content: "밥먹기",
-      checked: true,
-    },
-    {
-      id: 3,
-      content: "눈 축제",
-      checked: false,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    /**API 호출 코드*/
+    const getData = async () => {
+      const todos = await axios({
+        url: "http://localhost:8083/todos",
+        method: "GET",
+      });
+      console.log("todos", todos);
+      setTodos(todos.data);
+    };
+
+    getData();
+  }, []);
   const nextId = useRef(4);
 
   return (

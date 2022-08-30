@@ -8,15 +8,12 @@ const TodoInput = ({ todos, setTodos, nextId }) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const todo = { id: nextId.current, content, checked: false };
-          setTodos((prev) => prev.concat(todo));
           const data = await axios({
             url: "http://localhost:8083/todos",
             method: "POST",
             data: { content },
           });
-          console.log("data", data);
-
+          setTodos(data.data);
           nextId.current++;
           setContent("");
         }}
