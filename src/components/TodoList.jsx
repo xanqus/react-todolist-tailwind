@@ -1,7 +1,7 @@
 import React from "react";
 import TodoListItem from "./TodoListItem";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, setTodos }) => {
   return (
     <div className="overflow-x-auto mt-4">
       <table className="table w-full">
@@ -16,7 +16,12 @@ const TodoList = ({ todos }) => {
         </thead>
         <tbody>
           {todos.map((todo, index) => (
-            <TodoListItem key={index} todo={todo} />
+            <TodoListItem
+              key={index}
+              todo={todo}
+              setTodos={setTodos}
+              index={index}
+            />
           ))}
         </tbody>
       </table>

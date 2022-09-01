@@ -14,7 +14,6 @@ function App() {
         url: "http://localhost:8083/todos",
         method: "GET",
       });
-      console.log("todos", todos);
       setTodos(todos.data);
     };
 
@@ -25,7 +24,7 @@ function App() {
   return (
     <div className="max-w-4xl mx-auto mt-4">
       <TodoInput todos={todos} setTodos={setTodos} nextId={nextId} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
 }

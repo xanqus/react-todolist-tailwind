@@ -3,21 +3,21 @@ import React, { useState } from "react";
 
 const TodoInput = ({ todos, setTodos, nextId }) => {
   const [content, setContent] = useState("");
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const data = await axios({
+      url: "http://localhost:8083/todos",
+      method: "POST",
+      data: { content },
+    });
+    setTodos(data.data);
+    nextId.current++;
+    setContent("");
+  };
+
   return (
     <div className="form-control w-full">
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const data = await axios({
-            url: "http://localhost:8083/todos",
-            method: "POST",
-            data: { content },
-          });
-          setTodos(data.data);
-          nextId.current++;
-          setContent("");
-        }}
-      >
+      <form onSubmit={onSubmit}>
         <label className="label">
           <span className="label-text-alt">할 일을 추가해주세요!</span>
         </label>
