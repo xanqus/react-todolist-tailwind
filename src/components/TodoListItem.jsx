@@ -6,8 +6,16 @@ import {
   MdRemoveCircleOutline,
 } from "react-icons/md";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
-const TodoListItem = ({ todo, setTodos, index }) => {
+const TodoListItem = ({
+  todo,
+  setTodos,
+  index,
+  setActive,
+  setSelectedTodo,
+  setContent,
+}) => {
   const { id, content, checked } = todo;
   return (
     <tr>
@@ -22,7 +30,7 @@ const TodoListItem = ({ todo, setTodos, index }) => {
             //   )
             // );
             const data = await axios({
-              url: `http://localhost:8083/todos/${id}`,
+              url: `${BACKEND_URL}/todos/${id}`,
               method: "PATCH",
             });
             setTodos(data.data);
@@ -32,16 +40,24 @@ const TodoListItem = ({ todo, setTodos, index }) => {
         </div>
       </td>
       <td className="edit">
-        <div>
+        <label
+          htmlFor="my-modal-5"
+          className="modal-button cursor-pointer"
+          onClick={() => {
+            setSelectedTodo(todo);
+            setContent(content);
+            setActive(true);
+          }}
+        >
           <MdModeEditOutline />
-        </div>
+        </label>
       </td>
       <td className="remove">
         <div
           onClick={async () => {
             // setTodos((todos) => todos.filter((todo) => todo.id !== id));
             const data = await axios({
-              url: `http://localhost:8083/todos/${id}`,
+              url: `${BACKEND_URL}/todos/${id}`,
               method: "DELETE",
             });
             setTodos(data.data);

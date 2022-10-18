@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { BACKEND_URL } from "../config";
 
 const TodoInput = ({ todos, setTodos, nextId }) => {
   const [content, setContent] = useState("");
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = await axios({
-      url: "http://localhost:8083/todos",
+      url: `${BACKEND_URL}/todos`,
       method: "POST",
       data: { content },
     });
