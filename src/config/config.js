@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://todolist.sbsst.site:8083";
+export const BACKEND_URL = "https://api.todolist.sbsst.site";
